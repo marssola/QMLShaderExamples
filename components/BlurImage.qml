@@ -6,9 +6,11 @@ Item {
 
     property variant source
     property real radius: 0.0
+    property real direction: 16.0
+    property real quality: 3.0
 
     ShaderEffectSource {
-        id: effectSource1
+        id: effectSource
 
         width: control.width
         height: control.height
@@ -20,11 +22,12 @@ Item {
     }
 
     ShaderEffect {
-        id: effect1
+        id: effect
 
-        property variant source: effectSource1
+        property variant source: effectSource
         property real radius: control.radius
-        property variant resolution: Qt.vector2d(ApplicationWindow.window.width, ApplicationWindow.window.height)
+        property real direction: control.direction
+        property real quality: control.quality
 
         width: control.width
         height: control.height
