@@ -24,10 +24,12 @@ Item {
 
         property variant source: effectSource1
         property real radius: control.radius
+        property variant resolution: Qt.vector2d(ApplicationWindow.window.width, ApplicationWindow.window.height)
 
         width: control.width
         height: control.height
 
-        fragmentShader: "/shaders/fastblur.frag.qsb"
+        fragmentShader: "/shaders/blurImage.frag.qsb"
+        vertexShader: "/shaders/blurImage.vert.qsb"
     }
 }
