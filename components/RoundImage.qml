@@ -4,17 +4,25 @@ import QtQuick.Controls
 Item {
     id: control
 
-    property alias image: sourceImage
+    property variant source
     property real radius: 0.0
-    property int clipWidth: sourceImage.width
-    property int clipHeight: sourceImage.height
-    property int clipX: control.clipWidth - control.width
-    property int clipY: control.clipHeight - control.height
+
+    ShaderEffectSource {
+        id: shaderSource
+
+        width: control.width
+        height: control.height
+
+        visible: false
+        sourceItem: control.source
+        hideSource: control.visible
+        smooth: true
+    }
 
     ShaderEffect {
         id: effect
 
-        property variant source: sourceImage
+        property variant source: shaderSource
         property variant mask: maskRectangle
 
         width: control.width
@@ -23,6 +31,7 @@ Item {
         fragmentShader: "/shaders/roundImage.frag.qsb"
         vertexShader: "/shaders/roundImage.vert.qsb"
 
+        /*
         Image {
             id: sourceImage
             visible: false
@@ -36,6 +45,7 @@ Item {
 
             layer.enabled: true
         }
+        */
 
         Rectangle {
             id: maskRectangle
@@ -46,20 +56,6 @@ Item {
 
             layer.enabled: true
             radius: control.radius
-        }
-
-        BusyIndicator {
-            enabled: visible
-            visible: sourceImage.status === Image.Loading
-            anchors.centerIn: parent
-        }
-
-        ProgressBar {
-            visible: sourceImage.status === Image.Loading
-            width: parent.width
-            from: 0.0
-            to: 1.0
-            value: sourceImage.progress
         }
     }
 }

@@ -19,11 +19,20 @@ ScrollablePage {
             width: page.width - parent.spacing * 2
             height: width
 
-            image.source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
-            image.fillMode: Image.PreserveAspectCrop
-            clipWidth: sliderImageSize.value.toFixed(2)
-            clipHeight: sliderImageSize.value.toFixed(2)
             radius: sliderRadius.value.toFixed(1)
+            source: Image {
+                property int clipWidth: sliderImageSize.value.toFixed(2)
+                property int clipHeight: sliderImageSize.value.toFixed(2)
+                property int clipX: clipWidth - roundImage.width
+                property int clipY: clipHeight - roundImage.height
+
+                source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                fillMode: Image.PreserveAspectCrop
+
+                sourceSize.width: clipWidth
+                sourceSize.height: clipHeight
+                sourceClipRect: Qt.rect(clipX, clipY, roundImage.width, roundImage.height)
+            }
         }
 
         SliderChannel {
