@@ -31,22 +31,6 @@ Item {
         fragmentShader: "/shaders/roundImage.frag.qsb"
         vertexShader: "/shaders/roundImage.vert.qsb"
 
-        /*
-        Image {
-            id: sourceImage
-            visible: false
-
-            width: effect.width
-            height: effect.height
-
-            sourceSize.width: control.clipWidth
-            sourceSize.height: control.clipHeight
-            sourceClipRect: Qt.rect(control.clipX, control.clipY, sourceImage.width, sourceImage.height)
-
-            layer.enabled: true
-        }
-        */
-
         Rectangle {
             id: maskRectangle
 
