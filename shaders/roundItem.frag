@@ -12,7 +12,7 @@ layout(binding = 2) uniform sampler2D mask;
 
 void main() {
     vec4 texSource = texture(source, coord);
-    vec4 textMask = texture(mask, coord);
+    vec4 texMask = texture(mask, coord);
 
-    fragColor = textMask * texSource * qt_Opacity;
+    fragColor = texMask * texSource * qt_Opacity;
 }

@@ -6,14 +6,14 @@ layout(location = 0) out vec4 fragColor;
 layout(std140, binding = 0) uniform buf {
     mat4 qt_Matrix;
     float qt_Opacity;
-    float radius;
     vec2 resolution;
+    float radius;
 };
 
 layout(binding = 1) uniform sampler2D source;
 
 float normpdf(in float x, in float sigma) {
-    return 0.39894*exp(-0.5*x*x/(sigma*sigma))/sigma;
+    return 0.39894 * exp(-0.5 * x * x / (sigma * sigma)) / sigma;
 }
 
 void main() {
