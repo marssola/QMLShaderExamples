@@ -21,10 +21,22 @@ ScrollablePage {
             anchors.horizontalCenter: parent.horizontalCenter
 
             radius: sliderRadius.value.toFixed(1)
-            quality: sliderQuality.value.toFixed(2)
-            direction: sliderDirection.value.toFixed(2)
+
+
+
             source: Image {
+                property size originalSize: Qt.size(0,0)
                 source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                sourceSize.width: remap(blurImage.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, blurImage.width)
+                sourceSize.height: remap(blurImage.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, blurImage.height)
+
+                onSourceSizeChanged: console.log(sourceSize)
+
+                Component.onCompleted: {
+                    originalSize = Qt.size(sourceSize.width, sourceSize.height)
+//                    console.log(originalSize)
+//                    console.log(blurImage.width, blurImage.height)
+                }
             }
 
             //image.source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
@@ -39,43 +51,28 @@ ScrollablePage {
             text: qsTr("Radius: " + sliderRadius.value.toFixed(2))
 
             slider.from: 0
-            slider.to: 128.0
+            slider.to: 64.0
             slider.value: 8.0
             slider.stepSize: 1.0
             slider.snapMode: Slider.SnapAlways
             runningAnimation: false
         }
-
-        SliderChannel {
-            id: sliderDirection
-
-            width: 250
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: qsTr("Direction: " + sliderDirection.value.toFixed(2))
-
-            slider.from: 16.0
-            slider.to: 64.0
-            slider.value: 16.0
-            slider.stepSize: 1.0
-            slider.snapMode: Slider.SnapAlways
-            runningAnimation: false
-        }
-
-        SliderChannel {
-            id: sliderQuality
-
-            width: 250
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: qsTr("Quality: " + sliderQuality.value.toFixed(2))
-
-            slider.from: 3.0
-            slider.to: 20.0
-            slider.value: 3.0
-            slider.stepSize: 1.0
-            slider.snapMode: Slider.SnapAlways
-            runningAnimation: false
-        }
     }
+
+
+
+
+    function lerp( value: float, min: float, max: float ) {
+        return ( 1.0 - value ) * min + max * value;
+    }
+
+    function inverseLerp( value: float, min: float, max: float ) {
+        return ( value - min ) / ( max - min );
+    }
+
+    function remap( value: float, inMin: float, inMax: float, outMin: float, outMax: float ) {
+        const t = inverseLerp( value, inMin, inMax );
+        return lerp( t, outMin, outMax );
+    }
+
 }
