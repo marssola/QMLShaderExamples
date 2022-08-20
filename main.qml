@@ -13,6 +13,7 @@ ApplicationWindow {
     title: qsTr("Shader Effect")
 
     Material.theme: Material.Dark
+    Material.background: "#000"
 
     header: ToolBar {
         RowLayout {

@@ -13,17 +13,13 @@ ScrollablePage {
         width: parent.width
         spacing: 20
 
-        BlurImage {
-            id: blurImage
-
+        RoundImage {
+            id: roundImage
             width: parent.width - parent.spacing * 2
             height: width
             anchors.horizontalCenter: parent.horizontalCenter
 
             radius: sliderRadius.value.toFixed(1)
-
-
-
             source: Image {
                 property size originalSize: Qt.size(0,0)
                 source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
@@ -39,7 +35,21 @@ ScrollablePage {
                 }
             }
 
-            //image.source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
+                width: roundImage.width
+                height: width
+
+                radius: sliderRadius.value.toFixed(1)
+                quality: sliderQuality.value.toFixed(3)
+                direction: sliderDirection.value.toFixed(2)
+                source: Image {
+                    source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
+                    //source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                    //sourceSize.width: blurImage.width
+                    //sourceSize.height: blurImage.height
+                }
+
+                //image.source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
+            }
         }
 
         SliderChannel {
@@ -59,9 +69,6 @@ ScrollablePage {
         }
     }
 
-
-
-
     function lerp( value: float, min: float, max: float ) {
         return ( 1.0 - value ) * min + max * value;
     }
@@ -74,5 +81,4 @@ ScrollablePage {
         const t = inverseLerp( value, inMin, inMax );
         return lerp( t, outMin, outMax );
     }
-
 }
