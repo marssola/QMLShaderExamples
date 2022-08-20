@@ -28,8 +28,7 @@ Item {
         width: control.width
         height: control.height
 
-        fragmentShader: "/shaders/roundImage.frag.qsb"
-        vertexShader: "/shaders/roundImage.vert.qsb"
+        fragmentShader: "/shaders/roundItem.frag.qsb"
 
         Rectangle {
             id: maskRectangle
