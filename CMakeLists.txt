@@ -27,10 +27,8 @@ qt_add_qml_module(${PROJECT}
         shaders/colorChannel.frag
         shaders/waveEffect.frag
         shaders/genieEffect.vert
-        shaders/roundImage.frag
-        shaders/roundImage.vert
-        shaders/blurImage.frag
-        shaders/blurImage.vert
+        shaders/roundItem.frag
+        shaders/itemBlur.frag
         shaders/fastblur.frag
     QML_FILES
         main.qml
@@ -41,9 +39,9 @@ qt_add_qml_module(${PROJECT}
         pages/BlurPage.qml
         components/SliderChannel.qml
         components/GenieEffect.qml
-        components/RoundImage.qml
+        components/RoundItem.qml
         components/ScrollablePage.qml
-        components/BlurImage.qml
+        components/ItemBlur.qml
 )
 
 qt_add_shaders(${PROJECT} "shaders"
@@ -56,10 +54,8 @@ qt_add_shaders(${PROJECT} "shaders"
         shaders/colorChannel.frag
         shaders/waveEffect.frag
         shaders/genieEffect.vert
-        shaders/roundImage.frag
-        shaders/roundImage.vert
-        shaders/blurImage.frag
-        shaders/blurImage.vert
+        shaders/roundItem.frag
+        shaders/itemBlur.frag
         shaders/fastblur.frag
 )
 
