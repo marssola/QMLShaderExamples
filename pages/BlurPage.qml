@@ -13,42 +13,104 @@ ScrollablePage {
         width: parent.width
         spacing: 20
 
-        RoundImage {
-            id: roundImage
-            width: parent.width - parent.spacing * 2
+        RoundItem {
+            id: roundItem
+
+            width: page.width - parent.spacing * 2
             height: width
-            anchors.horizontalCenter: parent.horizontalCenter
 
-            radius: sliderRadius.value.toFixed(1)
-            source: Image {
-                property size originalSize: Qt.size(0,0)
-                source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
-                sourceSize.width: remap(blurImage.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, blurImage.width)
-                sourceSize.height: remap(blurImage.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, blurImage.height)
+            radius: sliderBorderRadius.value.toFixed(1)
+            source: ItemBlur {
+                id: itemBlur
 
-                onSourceSizeChanged: console.log(sourceSize)
-
-                Component.onCompleted: {
-                    originalSize = Qt.size(sourceSize.width, sourceSize.height)
-//                    console.log(originalSize)
-//                    console.log(blurImage.width, blurImage.height)
+                width: roundItem.width
+                height: width
+                radius: sliderRadius.value.toFixed(1)
+                source: Image {
+                    source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                    sourceSize.width: itemBlur.remap(itemBlur.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, itemBlur.width)
+                    sourceSize.height: itemBlur.remap(itemBlur.radius, sliderRadius.slider.to, sliderRadius.slider.from, 10, itemBlur.height)
                 }
             }
+        }
 
-                width: roundImage.width
-                height: width
+        ItemBlur {
+            id: itemBlur2
 
-                radius: sliderRadius.value.toFixed(1)
-                quality: sliderQuality.value.toFixed(3)
-                direction: sliderDirection.value.toFixed(2)
-                source: Image {
-                    source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
-                    //source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
-                    //sourceSize.width: blurImage.width
-                    //sourceSize.height: blurImage.height
+            width: parent.width - parent.spacing * 2
+            height: 200
+
+            radius: sliderRadius.value.toFixed(1)
+            source:  Item {
+                id: layered
+
+                width: itemBlur2.width
+                height: itemBlur2.height
+
+                layer.enabled: true
+
+                Rectangle {
+                    id: rectangle1
+                    x: 30
+                    y: 50
+                    width: 80
+                    height: 80
+                    radius: sliderBorderRadius.value.toFixed(1)
+
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "lightsteelblue" }
+                        GradientStop { position: 1.0; color: "darkgrey" }
+                    }
+
+                    ParallelAnimation {
+                        running: true
+                        loops: Animation.Infinite
+
+                        SequentialAnimation {
+                            NumberAnimation { target: rectangle1; property: "x"; from: 30; to: 200; duration: 1800 }
+                            NumberAnimation { target: rectangle1; property: "x"; from: 200; to: 30; duration: 1800 }
+                        }
+
+                        SequentialAnimation {
+                            NumberAnimation { target: rectangle1; property: "rotation"; from: 0; to: 360; duration: 1800 }
+                            NumberAnimation { target: rectangle1; property: "rotation"; from: 360; to: 0; duration: 1800 }
+                        }
+                    }
                 }
 
-                //image.source: "https://www.2net.com.br//Repositorio/251/Publicacoes/23883/3c2fd25f-c.jpg"
+                Rectangle {
+                    id: rectangle2
+                    x: 20
+                    y: 20
+                    width: 80
+                    height: 80
+                    radius: sliderBorderRadius.value.toFixed(1)
+
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: "lightsteelblue" }
+                        GradientStop { position: 1.0; color: "blue" }
+                    }
+
+                    ParallelAnimation {
+                        running: true
+                        loops: Animation.Infinite
+
+                        SequentialAnimation {
+                            NumberAnimation { target: rectangle2; property: "x"; from: 20; to: 300; duration: 2500 }
+                            NumberAnimation { target: rectangle2; property: "x"; from: 300; to: 20; duration: 2500 }
+                        }
+
+                        SequentialAnimation {
+                            NumberAnimation { target: rectangle2; property: "y"; from: 20; to: 120; duration: 2500 }
+                            NumberAnimation { target: rectangle2; property: "y"; from: 120; to: 20; duration: 2500 }
+                        }
+
+                        SequentialAnimation {
+                            NumberAnimation { target: rectangle2; property: "rotation"; from: 0; to: 360; duration: 2500 }
+                            NumberAnimation { target: rectangle2; property: "rotation"; from: 360; to: 0; duration: 2500 }
+                        }
+                    }
+                }
             }
         }
 
@@ -62,23 +124,26 @@ ScrollablePage {
 
             slider.from: 0
             slider.to: 64.0
-            slider.value: 8.0
+            slider.value: 0.0
             slider.stepSize: 1.0
             slider.snapMode: Slider.SnapAlways
             runningAnimation: false
         }
-    }
 
-    function lerp( value: float, min: float, max: float ) {
-        return ( 1.0 - value ) * min + max * value;
-    }
+        SliderChannel {
+            id: sliderBorderRadius
 
-    function inverseLerp( value: float, min: float, max: float ) {
-        return ( value - min ) / ( max - min );
-    }
+            width: 250
+            anchors.horizontalCenter: parent.horizontalCenter
 
-    function remap( value: float, inMin: float, inMax: float, outMin: float, outMax: float ) {
-        const t = inverseLerp( value, inMin, inMax );
-        return lerp( t, outMin, outMax );
+            text: qsTr("Border radius: " + sliderBorderRadius.value.toFixed(1))
+
+            slider.from: 0
+            slider.to: itemBlur.width / 2
+            slider.value: 10
+            slider.stepSize: 1.0
+            slider.snapMode: Slider.SnapAlways
+            runningAnimation: false
+        }
     }
 }

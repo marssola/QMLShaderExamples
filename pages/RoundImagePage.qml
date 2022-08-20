@@ -13,8 +13,8 @@ ScrollablePage {
         width: parent.width
         spacing: 20
 
-        RoundImage {
-            id: roundImage
+        RoundItem {
+            id: roundItem
 
             width: page.width - parent.spacing * 2
             height: width
@@ -23,15 +23,15 @@ ScrollablePage {
             source: Image {
                 property int clipWidth: sliderImageSize.value.toFixed(2)
                 property int clipHeight: sliderImageSize.value.toFixed(2)
-                property int clipX: clipWidth - roundImage.width
-                property int clipY: clipHeight - roundImage.height
+                property int clipX: clipWidth - roundItem.width
+                property int clipY: clipHeight - roundItem.height
 
                 source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
                 fillMode: Image.PreserveAspectCrop
 
                 sourceSize.width: clipWidth
                 sourceSize.height: clipHeight
-                sourceClipRect: Qt.rect(clipX, clipY, roundImage.width, roundImage.height)
+                sourceClipRect: Qt.rect(clipX, clipY, roundItem.width, roundItem.height)
             }
         }
 
@@ -44,7 +44,7 @@ ScrollablePage {
             text: qsTr("Border radius: " + sliderRadius.value.toFixed(1))
 
             slider.from: 0
-            slider.to: roundImage.width / 2
+            slider.to: roundItem.width / 2
             slider.value: 10
             slider.stepSize: 5.0
             slider.snapMode: Slider.SnapAlways
@@ -58,9 +58,9 @@ ScrollablePage {
             anchors.horizontalCenter: parent.horizontalCenter
 
             text: qsTr("Image size: " + sliderImageSize.value.toFixed(2))
-            slider.from: roundImage.width
-            slider.to: roundImage.width * 1.5
-            slider.value: roundImage.width
+            slider.from: roundItem.width
+            slider.to: roundItem.width * 1.5
+            slider.value: roundItem.width
             slider.stepSize: 10.0
             slider.snapMode: Slider.SnapAlways
             runningAnimation: false
