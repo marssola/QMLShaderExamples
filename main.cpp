@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     QQuickWindow::setGraphicsApi(QSGRendererInterface::Vulkan);
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/QMLShaderExamples/main.qml"_qs);
+    const QUrl url(u"qrc:/App/main.qml"_qs);
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject* obj, const QUrl& objUrl) {

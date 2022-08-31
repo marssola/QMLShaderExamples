@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls.Material
 
-import "../components"
+import Rask.ShaderEffects
+import "../components/" as Components
 
 Page {
     id: page
@@ -17,7 +18,7 @@ Page {
             width: parent.width
             height: width
 
-            GenieEffect {
+            Genie {
                 id: effect
 
                 width: parent.width

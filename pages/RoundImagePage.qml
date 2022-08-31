@@ -1,9 +1,10 @@
 import QtQuick
 import QtQuick.Controls.Material
 
-import "../components"
+import Rask.ShaderEffects
+import "../components/" as Components
 
-ScrollablePage {
+Components.ScrollablePage {
     id: page
 
     title: qsTr("Round Image")
@@ -26,7 +27,7 @@ ScrollablePage {
                 property int clipX: clipWidth - roundItem.width
                 property int clipY: clipHeight - roundItem.height
 
-                source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                source: "qrc:/App/imgs/simon.jpg"
                 fillMode: Image.PreserveAspectCrop
 
                 sourceSize.width: clipWidth
@@ -35,7 +36,7 @@ ScrollablePage {
             }
         }
 
-        SliderChannel {
+        Components.SliderChannel {
             id: sliderRadius
 
             width: 250
@@ -51,7 +52,7 @@ ScrollablePage {
             runningAnimation: false
         }
 
-        SliderChannel {
+        Components.SliderChannel {
             id: sliderImageSize
 
             width: 250
