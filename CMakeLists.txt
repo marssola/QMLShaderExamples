@@ -6,6 +6,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+include(FetchDependencies)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 find_package(Qt6 COMPONENTS ShaderTools)
@@ -23,7 +24,11 @@ qt_add_executable(${PROJECT_NAME}
     main.cpp
 )
 
-include(QMLPluginDependencies)
+FetchDependencies(RaskShaderEffects
+    REPOSITORY https://github.com/rask-project/ShaderEffects.git
+    BRANCH 1.0.0
+    TARGET ${PROJECT_NAME}
+)
 
 qt_add_qml_module(${PROJECT_NAME}
     URI App
@@ -33,7 +38,6 @@ qt_add_qml_module(${PROJECT_NAME}
         shaders/colorChannel.vert
         shaders/colorChannel.frag
         shaders/waveEffect.frag
-        shaders/genieEffect.vert
     QML_FILES
         main.qml
         pages/ColorChannelPage.qml
@@ -42,7 +46,6 @@ qt_add_qml_module(${PROJECT_NAME}
         pages/RoundImagePage.qml
         pages/BlurPage.qml
         components/SliderChannel.qml
-        components/GenieEffect.qml
         components/ScrollablePage.qml
 )
 
@@ -55,9 +58,6 @@ qt_add_shaders(${PROJECT_NAME} "shaders"
         shaders/colorChannel.vert
         shaders/colorChannel.frag
         shaders/waveEffect.frag
-        shaders/genieEffect.vert
-        shaders/roundItem.frag
-        shaders/fastblur.frag
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

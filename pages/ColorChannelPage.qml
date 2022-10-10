@@ -24,7 +24,7 @@ Page {
                 width: parent.width
                 height: width
 
-                source: "qrc:/QMLShaderExamples/imgs/simon.jpg"
+                source: "qrc:/App/imgs/simon.jpg"
             }
 
             ShaderEffect {
